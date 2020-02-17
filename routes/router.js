@@ -72,7 +72,7 @@ exports.route = function(req, res, body) {          // routing
             asset = "/start";
             routedUrl = "views/index.html";
             type = contentTypes.html;
-        } else if (req.url === "/start") {
+        } else if (req.url === "/start" && req.method === "GET") {
             asset = req.url;
             routedUrl = "views/index.html";
             type = contentTypes.html;
@@ -85,9 +85,9 @@ exports.route = function(req, res, body) {          // routing
             routes[req.method][asset](req, res, body);
             return;
         } else if (req.url === "/start" && req.method === "POST") {
-          asset = req.url;
-          routes[req.method][asset](req, res, body);
-          return;
+            asset = req.url;
+            routes[req.method][asset](req, res, body);
+            return;
       } else {
             asset = req.url;
             routedUrl = "views" + req.url + ".html";

@@ -22,7 +22,6 @@ module.exports = {
         if (fs.existsSync(path)) {              // does file exist, sync
             fs.readFile(path, function(err, data) { // read
                 if (err) {                      // if read error
-                    console.log("nml: " + err);           // inform server
                     goError(res);               // inform user
                     return;                     // back to caller
                 }
@@ -76,11 +75,10 @@ module.exports = {
       const dbname = "world";
       const constr = `mongodb://localhost:27017`;
       const cities = require('../private/MyCities.js');
-console.log("kilroy: " + req.url + " " + req.method);
       let information = lib.makeWebArrays(req, data);
       let info = { name: information.POST.country, continent: information.POST.continent, area: information.POST.area, population: information.POST.population, govn: information.POST.govn };
-      let obj = JSON.parse(info);
-      let que = {name: obj.name, continent: obj.continent};
+//      let obj = JSON.parse(info);
+      let que = {name: info.name, continent: info.continent};
 
         mongo.connect(
             constr, { useNewUrlParser: true, useUnifiedTopology: true},
@@ -93,7 +91,7 @@ console.log("kilroy: " + req.url + " " + req.method);
              * reads cities from the database
              */
             db.collection("country").updateOne(
-               que, {"$set": obj}, {upsert: true}, function (err, collection) {
+               que, {"$set": info}, {upsert: true}, function (err, collection) {
                  if (err) {
                    throw err;
                 }
@@ -102,7 +100,7 @@ console.log("kilroy: " + req.url + " " + req.method);
                     "Content-Type": "text/html; charset=utf-8"
                 });
                 console.log("City inserted/updated");
-                res.write(cities.cities(obj));
+                res.write(cities.cities(info));
                 res.end();
                 con.close();
             });
