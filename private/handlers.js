@@ -65,9 +65,49 @@ module.exports = {
                 res.writeHead(httpStatus.OK, {                  // yes, write relevant header
                     "Content-Type": "text/html; charset=utf-8"
                 });
-                
+
+                con.close();
+            });
+        });
+    },
+
+    insertCountry(req, res, data) {
+      const mongo = require('mongodb');
+      const dbname = "world";
+      const constr = `mongodb://localhost:27017`;
+      const cities = require('../private/MyCities.js');
+console.log("kilroy: " + req.url + " " + req.method);
+      let information = lib.makeWebArrays(req, data);
+      let info = { name: information.POST.country, continent: information.POST.continent, area: information.POST.area, population: information.POST.population, govn: information.POST.govn };
+      let obj = JSON.parse(info);
+      let que = {name: obj.name, continent: obj.continent};
+
+        mongo.connect(
+            constr, { useNewUrlParser: true, useUnifiedTopology: true},
+                                                        function (error, con) {
+            if (error) {
+                throw error;
+            }
+            const db = con.db(dbname);                  // make dbname the current db
+            /* Retrieve,
+             * reads cities from the database
+             */
+            db.collection("country").updateOne(
+               que, {"$set": obj}, {upsert: true}, function (err, collection) {
+                 if (err) {
+                   throw err;
+                }
+
+                 res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                    "Content-Type": "text/html; charset=utf-8"
+                });
+                console.log("City inserted/updated");
+                res.write(cities.cities(obj));
+                res.end();
                 con.close();
             });
         });
     }
-}
+
+
+};

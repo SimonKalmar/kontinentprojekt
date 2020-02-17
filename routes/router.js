@@ -30,7 +30,8 @@ const routes = {                                    // register handles to route
     },
 
     "POST": {
-        "/contact": handlers.receiveData
+        "/contact": handlers.receiveData,
+        "/start": handlers.insertCountry
     }
 };
 
@@ -83,7 +84,11 @@ exports.route = function(req, res, body) {          // routing
             asset = req.url;
             routes[req.method][asset](req, res, body);
             return;
-        } else {
+        } else if (req.url === "/start" && req.method === "POST") {
+          asset = req.url;
+          routes[req.method][asset](req, res, body);
+          return;
+      } else {
             asset = req.url;
             routedUrl = "views" + req.url + ".html";
             type = contentTypes.html;
