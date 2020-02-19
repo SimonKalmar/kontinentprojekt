@@ -5,7 +5,7 @@ module.exports = {
   "Antarctica": "Antarctica",
   "Asia": "Asia",
   "Europe": "Europe",
-  "North America": "North America",
+  "NorthAmerica": "North America",
   "Oceania": "Oceania",
-  "South America": "South America"
+  "SouthAmerica": "South America"
 }

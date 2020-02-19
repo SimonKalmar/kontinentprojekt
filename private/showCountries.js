@@ -1,7 +1,7 @@
 /* myCities.js Home made experimental templating */
 "use strict";
 
-const cities = function(obj) {
+const page = function(obj) {
     let htmltop = `<!doctype html>
 <html>
     <head>
@@ -11,7 +11,7 @@ const cities = function(obj) {
     </head>
     <body>
         <header>
-            <h1>Kilroy's Cities</h1>
+            <h1>Kilroy's Countries</h1>
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
@@ -28,10 +28,11 @@ const cities = function(obj) {
 </html>`;
 
     let dynamic = "";
-    dynamic += `<p><em>${obj.name}</em></p>`;
-
+    for (let i = 0; i < obj.length; i++) {
+      dynamic += `<p><em>${obj[i].name} and ${obj[i].continent}</em></p>`;
+    };
 
     return htmltop + dynamic + htmlbot;
 }
 
-exports.cities = cities;
+exports.page = page;
