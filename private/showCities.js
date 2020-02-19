@@ -11,7 +11,7 @@ const page = function(obj) {
     </head>
     <body>
         <header>
-            <h1>Countries</h1>
+            <h1>Cities</h1>
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
@@ -29,7 +29,7 @@ const page = function(obj) {
 
     let dynamic = "";
     for (let i = 0; i < obj.length; i++) {
-      dynamic += `<p><em>Country: ${obj[i].name}, Continent: ${obj[i].continent}, Area: ${obj[i].area}, Population: ${obj[i].population} and Government: ${obj[i].govn}</em></p>`;
+      dynamic += `<p><em>City: ${obj[i].name}, Country: ${obj[i].country}, Population: ${obj[i].population} and Capital: ${obj[i].capital}</em></p>`;
     };
 
     return htmltop + dynamic + htmlbot;

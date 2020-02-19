@@ -18,9 +18,12 @@ const routes = {                                    // register handles to route
     "GET": {
         "/start": handlers.getAndRespond,
         "/findcountry": handlers.findCountry,
+        "/findcity": handlers.findCity,
+        "/findlang": handlers.findLang,
         "/country": handlers.getAndRespond,
         "/about": handlers.getAndRespond,
         "/city": handlers.getAndRespond,
+        "/lang": handlers.getAndRespond,
         "js": handlers.getAndRespond,
         "css": handlers.getAndRespond,
         "png": handlers.getAndRespond,
@@ -33,7 +36,8 @@ const routes = {                                    // register handles to route
     "POST": {
         "/contact": handlers.receiveData,
         "/country": handlers.insertCountry,
-        "/city": handlers.insertCity
+        "/city": handlers.insertCity,
+        "/lang": handlers.insertLang
     }
 };
 
@@ -78,11 +82,15 @@ exports.route = function(req, res, body) {          // routing
             asset = req.url;
             routedUrl = "views/index.html";
             type = contentTypes.html;
-        } else if (req.url === "/city" && req.method === "GET") {
-            asset = req.url;
-            routedUrl = "views/city.html";
-            type = contentTypes.html;
         } else if (req.url === "/findcountry") {
+            asset = req.url;
+            routes[req.method][asset](req, res, body);
+            return;
+        } else if (req.url === "/findcity") {
+            asset = req.url;
+            routes[req.method][asset](req, res, body);
+            return;
+        } else if (req.url === "/findlang") {
             asset = req.url;
             routes[req.method][asset](req, res, body);
             return;
@@ -98,7 +106,11 @@ exports.route = function(req, res, body) {          // routing
           asset = req.url;
           routes[req.method][asset](req, res, body);
           return;
-    } else {
+      } else if (req.url === "/lang" && req.method === "POST") {
+        asset = req.url;
+        routes[req.method][asset](req, res, body);
+        return;
+      } else {
             asset = req.url;
             routedUrl = "views" + req.url + ".html";
             type = contentTypes.html;

@@ -77,7 +77,7 @@ module.exports = {
         const mongo = require('mongodb');
         const dbname = "world";
         const constr = `mongodb://localhost:27017`;
-        const cities = require('../private/showCountries.js');
+        const build = require('../private/showLang.js');
 
         mongo.connect(
             constr, { useNewUrlParser: true, useUnifiedTopology: true},
@@ -89,7 +89,7 @@ module.exports = {
             /* Retrieve,
              * reads cities from the database
              */
-            db.collection("lang").find().toArray(function (err, lang) {
+            db.collection("language").find().toArray(function (err, lang) {
                 if (err) {
                     throw err;
                 }
@@ -107,7 +107,7 @@ module.exports = {
         const mongo = require('mongodb');
         const dbname = "world";
         const constr = `mongodb://localhost:27017`;
-        const cities = require('../private/showCountries.js');
+        const build = require('../private/showCities.js');
 
         mongo.connect(
             constr, { useNewUrlParser: true, useUnifiedTopology: true},
@@ -186,100 +186,114 @@ module.exports = {
       const mongo = require('mongodb');
       const dbname = "world";
       const constr = `mongodb://localhost:27017`;
-      const cities = require('../private/countries.js');
+      const build = require('../private/countries.js');
       const continent = require('../private/continents.js');
       let information = lib.makeWebArrays(req, data);
-      let info = { name: information.POST.country, continent: information.POST.continent, area: information.POST.area, population: information.POST.population, govn: information.POST.govn };
+      let info = { name: information.POST.language, country: information.POST.country, procentage: information.POST.procentage, official: information.POST.official };
 //      let obj = JSON.parse(info);
-      let que = {name: info.name, continent: info.continent};
+      let find = { name: info.country };
+      let que = {name: info.name, country: info.country};
+      let countryCheck = require('../private/countryCheck.js');
 
-        mongo.connect(
-            constr, { useNewUrlParser: true, useUnifiedTopology: true},
-                                                        function (error, con) {
-            if (error) {
-                throw error;
-            }
-            const db = con.db(dbname);                  // make dbname the current db
-            /* Retrieve,
-             * reads cities from the database
-             */
-            if (info.continent === continent.Africa || info.continent === continent.Europe || info.continent === continent.Asia || info.continent === continent.Antarctica || info.continent === continent.NorthAmerica || info.continent === continent.SouthAmerica || info.continent === continent.Oceania ) {
-              db.collection("lang").updateOne(
-                que, {"$set": info}, {upsert: true}, function (err, collection) {
-                  if (err) {
-                    throw err;
-                  }
 
-                  res.writeHead(httpStatus.OK, {                  // yes, write relevant header
-                      "Content-Type": "text/html; charset=utf-8"
-                  });
-                  console.log("Country inserted/updated");
-                  res.write(cities.cities(info));
-                  res.end();
-                  con.close();
-            });
-          } else {
-            res.writeHead(httpStatus.OK, {                  // yes, write relevant header
-                "Content-Type": "text/html; charset=utf-8"
-            });
-            console.log("Hello");
-            res.end();
-            con.close();
-          };
-        });
+      mongo.connect(
+          constr, { useNewUrlParser: true, useUnifiedTopology: true},
+                                                      function (error, con) {
+          if (error) {
+              throw error;
+          }
+          const db = con.db(dbname);                  // make dbname the current db
+          /* Retrieve,
+           * reads cities from the database
+           */
+          db.collection("country").find({name: information.POST.country}).toArray(function (err, country) {
+              if (err) {
+                  throw err;
+              }
+              console.log(country);
+              console.log(country[0].name);
+              if (information.POST.country === country[0].name) {
+                db.collection("language").updateOne(
+                  que, {"$set": info}, {upsert: true}, function (err, collection) {
+                    if (err) {
+                      throw err;
+                    }
+
+                    res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                        "Content-Type": "text/html; charset=utf-8"
+                    });
+                    console.log("City inserted/updated");
+                    res.write(build.countries(info));
+                    res.end();
+                    con.close();
+              });
+            } else {
+              res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                  "Content-Type": "text/html; charset=utf-8"
+              });
+              console.log("Hello");
+              res.end();
+              con.close();
+            };
+          });
+      });
     },
 
     insertCity(req, res, data) {
       const mongo = require('mongodb');
       const dbname = "world";
       const constr = `mongodb://localhost:27017`;
-      const cities = require('../private/countries.js');
+      const build = require('../private/countries.js');
       const continent = require('../private/continents.js');
       let information = lib.makeWebArrays(req, data);
-      let info = { name: information.POST.city, continent: information.POST.country, population: information.POST.population, govn: information.POST.capital };
+      let info = { name: information.POST.city, country: information.POST.country, population: information.POST.population, capital: information.POST.capital };
 //      let obj = JSON.parse(info);
       let find = { name: info.country };
       let que = {name: info.name, country: info.country};
       let countryCheck = require('../private/countryCheck.js');
 
-      countryCheck.check(find);
 
-        mongo.connect(
-            constr, { useNewUrlParser: true, useUnifiedTopology: true},
-                                                        function (error, con) {
-            if (error) {
-                throw error;
-            }
-            const db = con.db(dbname);                  // make dbname the current db
-            /* Retrieve,
-             * reads cities from the database
-             */
+      mongo.connect(
+          constr, { useNewUrlParser: true, useUnifiedTopology: true},
+                                                      function (error, con) {
+          if (error) {
+              throw error;
+          }
+          const db = con.db(dbname);                  // make dbname the current db
+          /* Retrieve,
+           * reads cities from the database
+           */
+          db.collection("country").find({name: information.POST.country}).toArray(function (err, country) {
+              if (err) {
+                  throw err;
+              }
+              console.log(country);
+              console.log(country[0].name);
+              if (information.POST.country === country[0].name) {
+                db.collection("city").updateOne(
+                  que, {"$set": info}, {upsert: true}, function (err, collection) {
+                    if (err) {
+                      throw err;
+                    }
 
-         if ( country.country === info.country ) {
-              db.collection("city").updateOne(
-                que, {"$set": info}, {upsert: true}, function (err, collection) {
-                  if (err) {
-                    throw err;
-                  }
-
-                res.writeHead(httpStatus.OK, {                  // yes, write relevant header
-                    "Content-Type": "text/html; charset=utf-8"
-                });
-                console.log("City inserted/updated");
-                res.write(cities.countries(info));
-                res.end();
-                con.close();
+                    res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                        "Content-Type": "text/html; charset=utf-8"
+                    });
+                    console.log("City inserted/updated");
+                    res.write(build.countries(info));
+                    res.end();
+                    con.close();
+              });
+            } else {
+              res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                  "Content-Type": "text/html; charset=utf-8"
+              });
+              console.log("Hello");
+              res.end();
+              con.close();
+            };
           });
-          } else {
-          res.writeHead(httpStatus.OK, {                  // yes, write relevant header
-              "Content-Type": "text/html; charset=utf-8"
-          });
-          console.log("Hello");
-          res.end();
-          con.close();
-        };
-
-    });
+      });
     },
 
 
