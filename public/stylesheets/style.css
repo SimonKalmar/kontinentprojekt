@@ -1,3 +1,139 @@
-body {
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display+SC&display=swap');
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #2d2d2d;
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  padding-right: 270px;
+  padding-left: 40px;
+  font-family: 'Playfair Display SC', serif;
+}
+
+nav .fillerbox {
+  width: 50%;
+}
+
+a {
+  text-decoration: none;
+  font-size: 25px;
+  color: #FFFFFF;
+  list-style: none;
+}
+
+a:hover {
+  transition: ease-in-out 0.3s;
+  color: #e7ce71
+;
+}
+
+.homepic {
+  width: 50px;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 150px;
+  margin-top: 180px;
+}
+.box {
+  width: 550px;
+  padding: 30px;
+
+}
+
+.box h2 {
+  margin: 0 0 30px;
+  color: #e7ce71;
+  font-size: 40px;
+  font-family: 'Playfair Display SC', serif;
+}
+
+.box input {
+  padding: 10px 10px;
+  margin-bottom: 30px;
+  width: 480px;
+  border-radius: 5px;
+  border-style: none;
+  font-family: 'Playfair Display', serif;
+}
+
+.box input[type="submit"] {
+  border-bottom: none;
+  cursor: pointer;
+  background: #e7ce71;
+  color: #000000;
+  margin-bottom: 0;
+  border-radius: 5px;
+  width: 100px;
+  font-weight: 700;
+}
+
+.box input[type="submit"]:hover {
+  background: #ceaa67;
+  transition: 0.5s;
+}
+
+.box p {
+  color: #e7ce71;
+  margin-bottom: -5px;
+}
+
+
+.infobox {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 550px;
+  background: #444;
+  color: #fff;
+}
+
+.information {
+  border-bottom: 5px solid #2d2d2d;
+  padding: 30px;
+}
+
+.information span {
+  color: #e7ce71;
+  font-size: 16px;
+}
+
+.marginup {
+  margin: 30px;
+  margin-left: 150px;
+  color: #e7ce71;
+  width: 550px;
+}
+
+.marginup h2 {
+  font-size: 40px;
+  padding: 30px;
+  border-bottom: 5px solid #2d2d2d;
+  font-family: 'Playfair Display SC', serif;
+}
+
+.fixedpic {
+  position: fixed;
+  right: 150px;
+  top: 200px;
+  width: 800px;
 }

@@ -17,13 +17,10 @@ const contentTypes = {
 const routes = {                                    // register handles to routes
     "GET": {
         "/start": handlers.getAndRespond,
-        "/findcountry": handlers.findCountry,
-        "/findcity": handlers.findCity,
-        "/findlang": handlers.findLang,
-        "/country": handlers.getAndRespond,
+        "/country": handlers.findCountry,
+        "/city": handlers.findCity,
         "/about": handlers.getAndRespond,
-        "/city": handlers.getAndRespond,
-        "/lang": handlers.getAndRespond,
+        "/lang": handlers.findLang,
         "js": handlers.getAndRespond,
         "css": handlers.getAndRespond,
         "png": handlers.getAndRespond,
@@ -82,15 +79,15 @@ exports.route = function(req, res, body) {          // routing
             asset = req.url;
             routedUrl = "views/index.html";
             type = contentTypes.html;
-        } else if (req.url === "/findcountry") {
+        } else if (req.url === "/country") {
             asset = req.url;
             routes[req.method][asset](req, res, body);
             return;
-        } else if (req.url === "/findcity") {
+        } else if (req.url === "/city") {
             asset = req.url;
             routes[req.method][asset](req, res, body);
             return;
-        } else if (req.url === "/findlang") {
+        } else if (req.url === "/lang") {
             asset = req.url;
             routes[req.method][asset](req, res, body);
             return;

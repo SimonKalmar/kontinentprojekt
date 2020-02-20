@@ -137,7 +137,8 @@ module.exports = {
       const mongo = require('mongodb');
       const dbname = "world";
       const constr = `mongodb://localhost:27017`;
-      const build = require('../private/countries.js');
+      const fail = require('../private/countries.js');
+      const success = require('../private/success.js');
       const continent = require('../private/continents.js');
       let information = lib.makeWebArrays(req, data);
       let info = { name: information.POST.country, continent: information.POST.continent, area: information.POST.area, population: information.POST.population, govn: information.POST.govn };
@@ -165,7 +166,7 @@ module.exports = {
                       "Content-Type": "text/html; charset=utf-8"
                   });
                   console.log("Country inserted/updated");
-                  res.write(build.countries(info));
+                  res.write(success.page(info));
                   res.end();
                   con.close();
             });
@@ -174,6 +175,7 @@ module.exports = {
                 "Content-Type": "text/html; charset=utf-8"
             });
             console.log("Hello");
+            res.write(fail.page(info));
             res.end();
             con.close();
           };
@@ -187,6 +189,8 @@ module.exports = {
       const dbname = "world";
       const constr = `mongodb://localhost:27017`;
       const build = require('../private/countries.js');
+      const fail = require('../private/failedentry.js');
+      const success = require('../private/success.js');
       const continent = require('../private/continents.js');
       let information = lib.makeWebArrays(req, data);
       let info = { name: information.POST.language, country: information.POST.country, procentage: information.POST.procentage, official: information.POST.official };
@@ -210,31 +214,47 @@ module.exports = {
               if (err) {
                   throw err;
               }
-              console.log(country);
-              console.log(country[0].name);
-              if (information.POST.country === country[0].name) {
-                db.collection("language").updateOne(
-                  que, {"$set": info}, {upsert: true}, function (err, collection) {
-                    if (err) {
-                      throw err;
-                    }
 
-                    res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+              if (typeof country != "undefined"
+                        && country != null
+                        && country.length != null
+                        && country.length > 0) {
+                console.log("true");
+
+                console.log(country);
+                if (information.POST.country === country[0].name) {
+                  db.collection("language").updateOne(
+                    que, {"$set": info}, {upsert: true}, function (err, collection) {
+                      if (err) {
+                        throw err;
+                      }
+
+                      res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                          "Content-Type": "text/html; charset=utf-8"
+                        });
+                        console.log("Language inserted/updated");
+                        res.write(success.page(info));
+                        res.end();
+                        con.close();
+                      });
+                    } else {
+                      res.writeHead(httpStatus.OK, {                  // yes, write relevant header
                         "Content-Type": "text/html; charset=utf-8"
-                    });
-                    console.log("City inserted/updated");
-                    res.write(build.countries(info));
-                    res.end();
-                    con.close();
-              });
-            } else {
-              res.writeHead(httpStatus.OK, {                  // yes, write relevant header
-                  "Content-Type": "text/html; charset=utf-8"
-              });
-              console.log("Hello");
-              res.end();
-              con.close();
-            };
+                      });
+                      res.write(fail.page(info));
+                      res.end();
+                      con.close();
+                    };
+          } else {
+            res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                "Content-Type": "text/html; charset=utf-8"
+            });
+            console.log("entry failed")
+            res.write(fail.page(info));
+            res.end();
+            con.close();
+
+          };
           });
       });
     },
@@ -245,6 +265,8 @@ module.exports = {
       const constr = `mongodb://localhost:27017`;
       const build = require('../private/countries.js');
       const continent = require('../private/continents.js');
+      const fail = require('../private/failedentry.js');
+      const success = require('../private/success.js');
       let information = lib.makeWebArrays(req, data);
       let info = { name: information.POST.city, country: information.POST.country, population: information.POST.population, capital: information.POST.capital };
 //      let obj = JSON.parse(info);
@@ -267,31 +289,47 @@ module.exports = {
               if (err) {
                   throw err;
               }
-              console.log(country);
-              console.log(country[0].name);
-              if (information.POST.country === country[0].name) {
-                db.collection("city").updateOne(
-                  que, {"$set": info}, {upsert: true}, function (err, collection) {
-                    if (err) {
-                      throw err;
-                    }
+              if (typeof country != "undefined"
+                        && country != null
+                        && country.length != null
+                        && country.length > 0) {
+                console.log("true");
 
-                    res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                console.log(country);
+                if (information.POST.country === country[0].name) {
+                  db.collection("city").updateOne(
+                    que, {"$set": info}, {upsert: true}, function (err, collection) {
+                      if (err) {
+                        throw err;
+                      }
+
+                      res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                          "Content-Type": "text/html; charset=utf-8"
+                        });
+                        console.log("City inserted/updated");
+                        res.write(success.page(info));
+                        res.end();
+                        con.close();
+                      });
+                    } else {
+                      res.writeHead(httpStatus.OK, {                  // yes, write relevant header
                         "Content-Type": "text/html; charset=utf-8"
-                    });
-                    console.log("City inserted/updated");
-                    res.write(build.countries(info));
-                    res.end();
-                    con.close();
-              });
-            } else {
-              res.writeHead(httpStatus.OK, {                  // yes, write relevant header
-                  "Content-Type": "text/html; charset=utf-8"
-              });
-              console.log("Hello");
-              res.end();
-              con.close();
-            };
+                      });
+                      console.log("entry failed")
+                      res.write(fail.page(info));
+                      res.end();
+                      con.close();
+                    };
+          } else {
+            res.writeHead(httpStatus.OK, {                  // yes, write relevant header
+                "Content-Type": "text/html; charset=utf-8"
+            });
+            console.log("entry failed")
+            res.write(fail.page(info));
+            res.end();
+            con.close();
+
+          };
           });
       });
     },

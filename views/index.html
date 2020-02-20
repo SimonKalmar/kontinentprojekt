@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <form class="" action="/start" method="POST">
-      Country:<br/>
-      <input type="text" name="country" required><br/><br/>
-      Continent:<br/>
-      <input type="text" name="continent" required><br/><br/>
-      Area:<br/>
-      <input type="text" name="area" required><br/><br/>
-      Population:<br/>
-      <input type="text" name="population" required><br/><br/>
-      Government:<br/>
-      <input type="text" name="govn" required><br/><br/>
-      <input type="submit" name="" value="Send">
-    </form>
-  </body>
+
+<head>
+<meta charset="utf-8">
+<title>Continents Project</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<nav>
+<a href="/"><img src="earth.png" class="homepic"/></a>
+<div class="fillerbox"></div>
+
+<a href="/country">Country</a>
+<a href="/lang">Language</a>
+<a href="/city">City</a>
+</nav>
+
+<img src="world.png" class="fixedpic" style="width: 700px;" />
+
+<div class="flex-box" style="margin-top: 250px;">
+<div class="box" style="width: 700px;">
+  <h2>Continents Project</h2>
+  <p style="color: #fff;">On this website, then you will be introduced to forms, which will let you insert countries, cities and languages.<br/>
+  <br/>
+  Use the different menus to get to the different forms, where you underneath will be able to see which items are already in the database. However, you will have to take into account a few restrictions: <br/>
+  <br/>
+  Countries can only be added, if the continents are either Antarctica, Africa, Asia, Europe, North America, South America or Oceania.<br/>
+  <br/>
+  Languages and cities can only be added, if the country is already added into the database.
+  </p>
+</div>
+</div>
+
+</body>
 </html>

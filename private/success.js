@@ -21,14 +21,12 @@ const page = function(obj) {
     <a href="/city">City</a>
     </nav>
 
-    <img src="worldfail.png" class="fixedpic" style="width: 700px;" />
+    <img src="worldsuccess.png" class="fixedpic" style="width: 700px;" />
 
     <div class="flex-box" style="margin-top: 250px;">
     <div class="box" style="width: 700px;">
-      <h2>Entry failed</h2>
-      <p style="color: #fff;">Your attempt to enter ${obj.name} failed, as ${obj.continent} didn't exist in the database.<br/>
-      <br/>
-      Please try to enter the continent into the database before you try to add ${obj.name} again.
+      <h2>Success! Entry has been entered!</h2>
+      <p style="color: #fff;">Your attempt to enter ${obj.name} has been a success! Go back to the list to see your entry is now able to be read!
       </p>
     </div>
     </div>`;

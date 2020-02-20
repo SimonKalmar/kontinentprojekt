@@ -26,9 +26,9 @@ const page = function(obj) {
     <div class="flex-box" style="margin-top: 250px;">
     <div class="box" style="width: 700px;">
       <h2>Entry failed</h2>
-      <p style="color: #fff;">Your attempt to enter ${obj.name} failed, as ${obj.continent} didn't exist in the database.<br/>
+      <p style="color: #fff;">Your attempt to enter ${obj.name} failed, as ${obj.country} didn't exist in the database.<br/>
       <br/>
-      Please try to enter the continent into the database before you try to add ${obj.name} again.
+      Please try to enter the country into the database before you try to add ${obj.name} again.
       </p>
     </div>
     </div>`;
