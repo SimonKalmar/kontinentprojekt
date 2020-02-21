@@ -7,7 +7,7 @@ const page = function(obj) {
 
     <head>
     <meta charset="utf-8">
-    <title>Continents Project</title>
+    <title>Entry Success!</title>
     <link rel="stylesheet" href="style.css">
     </head>
 
