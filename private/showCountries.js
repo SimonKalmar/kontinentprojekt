@@ -21,7 +21,7 @@ const page = function(obj) {
     <a href="/city">City</a>
   </nav>
 
-  <img src="continents.png" class="fixedpic" />
+  <img src="continent.png" class="fixedpic" style="width: 900px; right: 75px;" />
 
   <div class="flex-box">
     <div class="box">
